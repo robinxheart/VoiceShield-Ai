@@ -1,0 +1,21 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Env files (secrets)
+.env
+.env.local
+
+# Uploaded/test audio (large, may include real voice recordings)
+backend/uploads/
+dataset/
+
+# OS junk
+.DS_Store
+Thumbs.db
