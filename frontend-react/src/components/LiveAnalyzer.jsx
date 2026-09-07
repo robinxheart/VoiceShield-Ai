@@ -377,7 +377,9 @@ try {
     dbError
   );
 }
-
+if (data.error || !data.level) {
+  throw new Error(data.details || data.error || "Analysis failed");
+}
 setLiveRisk(Number(data.final_risk));
 setLiveLevel(data.level);
 if (data.final_risk >= 50) { setAlertMessage("⚠️ ALERT SENT TO SUPERVISOR: +91-98XXXXXXXX"); } else { setAlertMessage(null); }
