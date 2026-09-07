@@ -19,7 +19,12 @@ load_dotenv()
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
-supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+supabase = None
+if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+    try:
+        supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+    except Exception as e:
+        print(f"Warning: Supabase client initialization failed: {e}")
 
 print("VOICE MODEL + SUPABASE READY")
 
@@ -168,6 +173,7 @@ async def analyze_audio(file: UploadFile = File(...)):
             "duration_seconds": round(duration, 2),
             "sample_rate": sample_rate,
             "deepfake_probability": deepfake_probability,
+            "aasist_spoof_score": deepfake_probability,
             "bona_fide_probability": bona_fide_probability,
             "context_risk": context_risk,
             "speaker_mismatch": None,
@@ -177,6 +183,7 @@ async def analyze_audio(file: UploadFile = File(...)):
             "reasons": reasons,
             "model": "AASIST-finetuned",
             "message": "Audio analyzed using the fine-tuned AASIST anti-spoofing model."
+            
         }
 
         latest_risk = result

@@ -26,12 +26,17 @@ import numpy as np
 import librosa
 import torch
 
+from pathlib import Path
 import sys
-sys.path.append("./aasist-main")
+
+BASE_DIR = Path(__file__).resolve().parent
+AASIST_DIR = BASE_DIR / "aasist-main"
+sys.path.append(str(AASIST_DIR))
+
 from models.AASIST import Model
 
-CONFIG_PATH = "./aasist-main/config/AASIST.conf"
-WEIGHTS_PATH = "./aasist-main/models/weights/AASIST_finetuned.pth"
+CONFIG_PATH = str(AASIST_DIR / "config" / "AASIST.conf")
+WEIGHTS_PATH = str(AASIST_DIR / "models" / "weights" / "AASIST_finetuned.pth")
 TARGET_SR = 16000
 NB_SAMP = 64600  # ~4.04 seconds at 16kHz
 
